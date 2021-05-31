@@ -1,0 +1,7 @@
+:root {
+    --color-pink: #ffaacc
+}
+
+html {
+    background: var(--color-pink);
+}
