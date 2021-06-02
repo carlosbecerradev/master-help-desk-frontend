@@ -48,17 +48,19 @@
               >
                 <!-- A virtual composite column -->
                 <template #cell(actions)="data">
-                  <router-link
-                    :to="{ path: '/usuario/editar/' + data.item.id }"
-                    class="ml-auto btn btn-warning btn-sm"
-                    >Editar</router-link
-                  >
-                  <button
-                    @click="deleteUserById(data.item.id)"
-                    class="ml-2 btn btn-danger btn-sm"
-                  >
-                    Eliminar
-                  </button>
+                  <div class="d-flex">
+                    <router-link
+                      :to="{ path: '/usuario/editar/' + data.item.id }"
+                      class="ml-auto btn btn-warning btn-sm"
+                      >Editar</router-link
+                    >
+                    <button
+                      @click="deleteUserById(data.item.id)"
+                      class="ml-2 btn btn-danger btn-sm"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
                 </template>
               </b-table>
 
@@ -90,7 +92,7 @@ export default {
       currentPage: 1,
       items: [],
       fields: [
-        { key: "id", label: "Código" },
+        { key: "id", label: "Id" },
         { key: "username", label: "Nombre de Usuario" },
         { key: "password", label: "Contraseña" },
         { key: "authority", label: "Rol" },
@@ -107,7 +109,6 @@ export default {
       ],
     };
   },
-
   computed: {
     rows() {
       return this.items.length;
