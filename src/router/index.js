@@ -8,6 +8,9 @@ import EditarUsuarioPage from '../views/usuario/EditarUsuarioPage'
 import ListarClientesPage from '../views/cliente/ListarClientesPage'
 import RegistrarClientePage from '../views/cliente/RegistrarClientePage'
 import EditarClientePage from '../views/cliente/EditarClientePage'
+import ListarEmpleadosPage from '../views/empleado/ListarEmpleadosPage'
+import RegistrarEmpleadoPage from '../views/empleado/RegistrarEmpleadoPage'
+import EditarEmpleadoPage from '../views/empleado/EditarEmpleadoPage'
 
 Vue.use(VueRouter)
 
@@ -51,6 +54,21 @@ const routes = [
     path: '/cliente/editar/:idCustomer',
     name: 'EditarClientePage',
     component: EditarClientePage
+  },
+  {
+    path: '/empleado/listar',
+    name: 'ListarEmpleadosPage',
+    component: ListarEmpleadosPage
+  },
+  {
+    path: '/empleado/registrar',
+    name: 'RegistrarEmpleadoPage',
+    component: RegistrarEmpleadoPage
+  },
+  {
+    path: '/empleado/editar/:idEmployee',
+    name: 'EditarEmpleadoPage',
+    component: EditarEmpleadoPage
   },
 ]
 
