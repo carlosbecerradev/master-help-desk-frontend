@@ -1,75 +1,93 @@
 <template>
   <div class="add-new-user">
-    <b-navbar variant="dark" type="dark">
-      <b-navbar-brand href="/login">Optimal Solutions Help Desk</b-navbar-brand>
-    </b-navbar>
-    <div class="container">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-md-8 col-lg-6">
-          <b-card class="p-4 mt-5">
-            <h1 class="text-center mb-5">Registrar Usuario</h1>
-            <b-form @submit.prevent="fetchInsertUser">
-              <b-form-group
-                id="input-group-1"
-                label="Nombre de Usuario:"
-                label-for="input-1"
+    <admin-page-layout>
+      <div class="container">
+        <div class="main">
+          <b-navbar variant="faded" type="light">
+            <b-navbar-brand
+              ><span class="main-header-title">Usuarios</span></b-navbar-brand
+            >
+            <b-nav pills class="ml-auto">
+              <b-nav-item-dropdown
+                id="my-nav-dropdown"
+                toggle-class="nav-link-custom bg-white text-dark"
+                right
               >
-                <b-form-input
-                  id="input-1"
-                  v-model="user.username"
-                  type="text"
-                  placeholder="Escriba aqui"
-                  autocomplete="username"
-                  required
-                ></b-form-input>
-              </b-form-group>
-              <b-form-group
-                id="input-group-2"
-                label="Contraseña:"
-                label-for="input-2"
-              >
-                <b-form-input
-                  id="input-2"
-                  v-model="user.password"
-                  type="text"
-                  placeholder="Escriba aqui"
-                  autocomplete="current-password"
-                  required
-                ></b-form-input>
-              </b-form-group>
+                <template #button-content>
+                  <span style="font-weight: bold">Carlos</span>
+                  <b-img
+                    style="height: 40px"
+                    rounded="circle"
+                    alt="Circle image"
+                    src="https://static.thenounproject.com/png/1081856-200.png"
+                  ></b-img>
+                </template>
+                <b-dropdown-item>Cerrar Sesión</b-dropdown-item>
+              </b-nav-item-dropdown>
+            </b-nav>
+          </b-navbar>
+        </div>
 
-              <b-form-group label="Roles:">
-                <b-form-select
-                  v-model="user.authority"
-                  :options="authorities"
-                ></b-form-select>
-              </b-form-group>
+        <div class="row justify-content-center align-items-center">
+          <div class="col-12 col-md-8 col-lg-6">
+            <b-card class="p-4 my-5">
+              <h1 class="text-center mb-5">Registrar Usuario</h1>
+              <b-form @submit.prevent="fetchInsertUser">
+                <b-form-group label="Nombre de Usuario:">
+                  <b-form-input
+                    v-model="user.username"
+                    type="text"
+                    placeholder="Escriba aqui"
+                    required
+                    trim
+                  ></b-form-input>
+                </b-form-group>
+                <b-form-group label="Contraseña:">
+                  <b-form-input
+                    v-model="user.password"
+                    type="text"
+                    placeholder="Escriba aqui"
+                    required
+                    trim
+                  ></b-form-input>
+                </b-form-group>
 
-              <b-form-group label="Estado:"
-                ><b-form-select
-                  v-model="user.enabled"
-                  :options="enabledOptions"
-                ></b-form-select>
-              </b-form-group>
+                <b-form-group label="Roles:">
+                  <b-form-select
+                    v-model="user.authority"
+                    :options="authorities"
+                    required
+                  ></b-form-select>
+                </b-form-group>
 
-              <b-button block type="submit" variant="success"
-                >Confirmar</b-button
-              >
-              <div
-                @click="cancelBtn"
-                class="btn d-block bg-danger text-white py-2 px-4 rounded text-center mt-2"
-              >
-                Cancelar
-              </div>
-            </b-form>
-          </b-card>
+                <b-form-group label="Estado:">
+                  <b-form-select
+                    v-model="user.enabled"
+                    :options="enabledOptions"
+                    required
+                  ></b-form-select>
+                </b-form-group>
+
+                <div class="mt-4">
+                  <b-button type="submit" variant="purple">Confirmar</b-button>
+                  <router-link
+                    to="/usuario/listar"
+                    class="btn btn-danger text-white ml-2"
+                    >Cancelar</router-link
+                  >
+                </div>
+              </b-form>
+            </b-card>
+          </div>
         </div>
       </div>
-    </div>
+    </admin-page-layout>
   </div>
 </template>
 
 <script>
+import AdminPageLayout from "../../layouts/AdminPageLayout";
+
 export default {
   data() {
     return {
@@ -100,8 +118,6 @@ export default {
 
         this.authorities =
           response.status == 200 ? await response.json() : null;
-        // console.log(this.authorities);
-        // console.log(response);
       } catch (error) {
         console.error("RegistrarUsuarioPage:fetchAuthorities:", error);
       }
@@ -118,20 +134,28 @@ export default {
         });
 
         if (response.status == 201) {
+          this.$swal.fire({
+            icon: "success",
+            title: "Registrado",
+          });
           this.$router.push("/usuario/listar");
+        } else {
+          this.$swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Tiene campos que completar o este 'username' ya existe!",
+          });
         }
-        // console.log(this.authorities);
-        // console.log(response);
       } catch (error) {
         console.error("RegistrarUsuarioPage:fetchInsertUser:", error);
       }
     },
-    cancelBtn() {
-      this.$router.go(-1);
-    },
   },
   mounted() {
     this.fetchAuthorities();
+  },
+  components: {
+    AdminPageLayout,
   },
 };
 </script>

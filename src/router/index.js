@@ -30,7 +30,7 @@ const routes = [
     component: RegistrarUsuarioPage
   },
   {
-    path: '/usuario/editar',
+    path: '/usuario/editar/:idUser',
     name: 'EditarUsuarioPage',
     component: EditarUsuarioPage
   },
