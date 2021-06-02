@@ -5,6 +5,9 @@ import LoginPage from '../views/LoginPage.vue'
 import ListarUsuariosPage from '../views/usuario/ListarUsuariosPage'
 import RegistrarUsuarioPage from '../views/usuario/RegistrarUsuarioPage'
 import EditarUsuarioPage from '../views/usuario/EditarUsuarioPage'
+import ListarClientesPage from '../views/cliente/ListarClientesPage'
+import RegistrarClientePage from '../views/cliente/RegistrarClientePage'
+import EditarClientePage from '../views/cliente/EditarClientePage'
 
 Vue.use(VueRouter)
 
@@ -33,6 +36,21 @@ const routes = [
     path: '/usuario/editar/:idUser',
     name: 'EditarUsuarioPage',
     component: EditarUsuarioPage
+  },
+  {
+    path: '/cliente/listar',
+    name: 'ListarClientesPage',
+    component: ListarClientesPage
+  },
+  {
+    path: '/cliente/registrar',
+    name: 'RegistrarClientePage',
+    component: RegistrarClientePage
+  },
+  {
+    path: '/cliente/editar/:idCustomer',
+    name: 'EditarClientePage',
+    component: EditarClientePage
   },
 ]
 
