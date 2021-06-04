@@ -11,7 +11,7 @@
 
       <div class="lateral-navbar-nav">
         <details>
-          <summary class="lateral-navbar-nav-item">Gest. Usuarios</summary>
+          <summary class="lateral-navbar-nav-item">Mant. Usuarios</summary>
           <b-list-group>
             <b-list-group-item>
               <router-link
@@ -31,7 +31,7 @@
         </details>
 
         <details>
-          <summary class="lateral-navbar-nav-item">Gest. Clientes</summary>
+          <summary class="lateral-navbar-nav-item">Mant. Clientes</summary>
           <b-list-group>
             <b-list-group-item>
               <router-link
@@ -51,7 +51,7 @@
         </details>
 
         <details>
-          <summary class="lateral-navbar-nav-item">Gest. Empleados</summary>
+          <summary class="lateral-navbar-nav-item">Mant. Empleados</summary>
           <b-list-group>
             <b-list-group-item>
               <router-link
