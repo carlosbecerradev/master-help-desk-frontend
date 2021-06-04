@@ -138,15 +138,14 @@ export default {
           confirmButtonText: "Si, eliminar!",
           cancelButtonText: "Cancelar",
         })
-        .then((result) => {
+        .then(async (result) => {
           if (result.isConfirmed) {
-            if (fetchDeleteUserById()) {
+            if (await fetchDeleteUserById()) {
               this.$swal.fire(
                 "Elimimado!",
                 "El registro se elimino.",
                 "success"
               );
-              this.fetchUsuarios();
             } else {
               this.$swal.fire({
                 icon: "error",
@@ -155,6 +154,7 @@ export default {
               });
             }
           }
+          await this.fetchUsuarios();
         });
 
       async function fetchDeleteUserById() {

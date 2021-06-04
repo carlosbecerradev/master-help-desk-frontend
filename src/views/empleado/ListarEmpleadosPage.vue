@@ -135,15 +135,14 @@ export default {
           confirmButtonText: "Si, eliminar!",
           cancelButtonText: "Cancelar",
         })
-        .then((result) => {
+        .then(async (result) => {
           if (result.isConfirmed) {
-            if (fetchDeleteEmpleadoById()) {
+            if (await fetchDeleteEmpleadoById()) {
               this.$swal.fire(
                 "Elimimado!",
                 "El registro se elimino.",
                 "success"
               );
-              this.fetchEmpleados();
             } else {
               this.$swal.fire({
                 icon: "error",
@@ -152,6 +151,7 @@ export default {
               });
             }
           }
+          await this.fetchEmpleados();
         });
 
       async function fetchDeleteEmpleadoById() {

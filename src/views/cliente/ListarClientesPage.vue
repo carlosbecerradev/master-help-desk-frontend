@@ -39,7 +39,7 @@
             </div>
             <div class="list-body">
               <b-table
-                id="users-table"
+                id="customer-table"
                 hover
                 responsive
                 :fields="fields"
@@ -70,7 +70,7 @@
                 :total-rows="rows"
                 :per-page="perPage"
                 align="center"
-                aria-controls="users-table"
+                aria-controls="customer-table"
               >
               </b-pagination>
             </div>
@@ -139,15 +139,14 @@ export default {
           confirmButtonText: "Si, eliminar!",
           cancelButtonText: "Cancelar",
         })
-        .then((result) => {
+        .then(async (result) => {
           if (result.isConfirmed) {
-            if (fetchDeleteClienteById()) {
+            if (await fetchDeleteClienteById()) {
               this.$swal.fire(
                 "Elimimado!",
                 "El registro se elimino.",
                 "success"
               );
-              this.fetchClientes();
             } else {
               this.$swal.fire({
                 icon: "error",
@@ -156,6 +155,7 @@ export default {
               });
             }
           }
+          await this.fetchClientes();
         });
 
       async function fetchDeleteClienteById() {
