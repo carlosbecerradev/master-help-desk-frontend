@@ -7,24 +7,7 @@
             <b-navbar-brand
               ><span class="main-header-title">Clientes</span></b-navbar-brand
             >
-            <b-nav pills class="ml-auto">
-              <b-nav-item-dropdown
-                id="my-nav-dropdown"
-                toggle-class="nav-link-custom bg-white text-dark"
-                right
-              >
-                <template #button-content>
-                  <span style="font-weight: bold">Carlos</span>
-                  <b-img
-                    style="height: 40px"
-                    rounded="circle"
-                    alt="Circle image"
-                    src="https://static.thenounproject.com/png/1081856-200.png"
-                  ></b-img>
-                </template>
-                <b-dropdown-item>Cerrar Sesión</b-dropdown-item>
-              </b-nav-item-dropdown>
-            </b-nav>
+            <user-dropdown></user-dropdown>
           </b-navbar>
         </div>
 
@@ -128,6 +111,7 @@
 
 <script>
 import AdminPageLayout from "../../layouts/AdminPageLayout";
+import UserDropdown from "@/components/auth/UserDropdown";
 
 export default {
   data() {
@@ -187,8 +171,7 @@ export default {
           this.$swal.fire({
             icon: "error",
             title: "Oops...",
-            text:
-              "Tiene campos que completar o el 'Nombre de Usuario', 'correo', 'celular' ya existe!",
+            text: "Tiene campos que completar o el 'Nombre de Usuario', 'correo', 'celular' ya existe!",
           });
         }
       } catch (error) {
@@ -201,6 +184,7 @@ export default {
   },
   components: {
     AdminPageLayout,
+    UserDropdown,
   },
 };
 </script>
