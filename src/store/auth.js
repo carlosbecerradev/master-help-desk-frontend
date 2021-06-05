@@ -13,6 +13,7 @@ const state = {
 
 const mutations = {
     PROCESS_JWT: (state, jwt) => {
+        state.jwt = jwt;
         state.jwt_cLaims.jwt_subject = JSON.parse(atob(jwt.split('.')[1])).sub;
         state.jwt_cLaims.jwt_expiration = JSON.parse(atob(jwt.split('.')[1])).exp;
         state.jwt_cLaims.jwt_authority = JSON.parse(atob(jwt.split('.')[1])).authorities[0].authority;
