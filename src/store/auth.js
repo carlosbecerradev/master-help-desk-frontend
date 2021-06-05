@@ -5,7 +5,7 @@ const state = {
     jwt: "",
     jwt_storage_name: "OptimalSolutionsJWT",
     jwt_cLaims: {
-        jwt_subject: "",
+        jwt_subject: "username",
         jwt_expiration: "",
         jwt_authority: "",
     },
@@ -57,6 +57,17 @@ const actions = {
                 router.push("/login");
                 break;
         }
+    },
+    logout({ state }) {
+        localStorage.removeItem(state.jwt_storage_name);
+        state.jwt_cLaims = {
+            jwt_subject: "",
+            jwt_expiration: "",
+            jwt_authority: "",
+        };
+        state.jwt = "";
+        console.log(state.jwt_cLaims, state.jwt)
+        router.push("/login");
     },
 }
 
