@@ -1,44 +1,44 @@
 <template>
   <div class="login-page">
-    <b-navbar variant="dark" type="dark">
-      <b-navbar-brand href="/login">Optimal Solutions Help Desk</b-navbar-brand>
-    </b-navbar>
     <div class="container">
-      <div class="row justify-content-center align-items-center">
-        <div class="col-12 col-md-8 col-lg-6">
+      <div
+        class="
+          row
+          justify-content-center justify-content-sm-end
+          align-items-center
+        "
+        style="height: 100vh"
+      >
+        <div class="col-10 col-md-6 col-lg-4">
           <b-card class="p-4 mt-5">
-            <h1 class="text-center mb-5">Iniciar Sesión</h1>
-            <b-form @submit.prevent="login">
-              <b-form-group
-                id="input-group-1"
-                label="Nombre de Usuario:"
-                label-for="input-1"
-              >
+            <div class="text-center mb-5">
+              <img src="@/assets/logo-purple.svg" alt="" />
+            </div>
+
+            <b-form @submit.prevent="executeLogin">
+              <b-form-group label="Nombre de Usuario:">
                 <b-form-input
-                  id="input-1"
                   v-model="loginRequest.username"
                   type="text"
                   placeholder="Escriba aqui"
-                  autocomplete="username"
                   required
-                ></b-form-input>
-              </b-form-group>
-              <b-form-group
-                id="input-group-2"
-                label="Contraseña:"
-                label-for="input-2"
-              >
-                <b-form-input
-                  id="input-2"
-                  v-model="loginRequest.password"
-                  type="password"
-                  placeholder="Escriba aqui"
-                  autocomplete="current-password"
-                  required
+                  trim
                 ></b-form-input>
               </b-form-group>
 
-              <b-button block type="submit" variant="dark">Ingresar</b-button>
+              <b-form-group label="Contraseña:">
+                <b-form-input
+                  v-model="loginRequest.password"
+                  type="password"
+                  placeholder="Escriba aqui"
+                  required
+                  trim
+                ></b-form-input>
+              </b-form-group>
+
+              <b-button block type="submit" class="btn-purple"
+                >Ingresar al Sistema</b-button
+              >
             </b-form>
           </b-card>
         </div>
@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   data() {
     return {
@@ -57,5 +59,29 @@ export default {
       },
     };
   },
+  methods: {
+    ...mapActions(["login"]),
+    async executeLogin() {
+      let flag = await this.login(this.loginRequest);
+      if (!flag) {
+        this.$swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "El nombre de usuario o contraseña son incorrectos!",
+        });
+      }
+    },
+  },
 };
 </script>
+
+<style>
+.login-page {
+  background-image: url("../assets/login-bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  font-family: var(--font-quicksand);
+}
+</style>
