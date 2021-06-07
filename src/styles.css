@@ -35,6 +35,10 @@ a, a:hover {
     color: var(--color-white)
 }
 
+.bg-purple {
+    background-color: var(--color-purple) !important;
+}
+
 /* Layout **/
 
 .main-header-title {
@@ -97,6 +101,7 @@ a, a:hover {
 }
 
 /** theme **/
+
 .page-item.active .page-link {
     background-color: var(--color-purple) !important;
     border-color: var(--color-purple) !important;

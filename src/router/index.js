@@ -11,6 +11,7 @@ import EditarClientePage from '../views/cliente/EditarClientePage'
 import ListarEmpleadosPage from '../views/empleado/ListarEmpleadosPage'
 import RegistrarEmpleadoPage from '../views/empleado/RegistrarEmpleadoPage'
 import EditarEmpleadoPage from '../views/empleado/EditarEmpleadoPage'
+import RealizarSolicitudPage from '../views/solicitud/RealizarSolicitudPage'
 
 Vue.use(VueRouter)
 
@@ -69,6 +70,11 @@ const routes = [
     path: '/empleado/editar/:idEmployee',
     name: 'EditarEmpleadoPage',
     component: EditarEmpleadoPage
+  },
+  {
+    path: '/solicitud',
+    name: 'RealizarSolicitudPage',
+    component: RealizarSolicitudPage
   },
 ]
 

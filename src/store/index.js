@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from './auth'
+import request_type from './request_type'
+import cutomer_request from './customer_request'
 
 Vue.use(Vuex)
 
@@ -17,5 +19,7 @@ export default new Vuex.Store({
   },
   modules: {
     auth,
+    request_type,
+    cutomer_request,
   }
 })
