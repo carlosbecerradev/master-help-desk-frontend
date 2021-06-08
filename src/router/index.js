@@ -12,6 +12,7 @@ import ListarEmpleadosPage from '../views/empleado/ListarEmpleadosPage'
 import RegistrarEmpleadoPage from '../views/empleado/RegistrarEmpleadoPage'
 import EditarEmpleadoPage from '../views/empleado/EditarEmpleadoPage'
 import RealizarSolicitudPage from '../views/solicitud/RealizarSolicitudPage'
+import SolicitudesRecibidasPage from '../views/solicitud/SolicitudesRecibidasPage'
 
 Vue.use(VueRouter)
 
@@ -75,6 +76,11 @@ const routes = [
     path: '/solicitud',
     name: 'RealizarSolicitudPage',
     component: RealizarSolicitudPage
+  },
+  {
+    path: '/solicitudes-recibidas',
+    name: 'SolicitudesRecibidasPage',
+    component: SolicitudesRecibidasPage
   },
 ]
 
