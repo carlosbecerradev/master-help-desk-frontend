@@ -5,7 +5,7 @@
 <script>
 export default {
   mounted() {
-    this.$route.push("/login");
+    this.$router.push("/login");
   },
 };
 </script>
