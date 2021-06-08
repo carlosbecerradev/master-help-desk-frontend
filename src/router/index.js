@@ -78,7 +78,7 @@ const routes = [
     component: RealizarSolicitudPage
   },
   {
-    path: '/solicitudes-recibidas',
+    path: '/analista/solicitudes',
     name: 'SolicitudesRecibidasPage',
     component: SolicitudesRecibidasPage
   },
