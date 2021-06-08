@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '../store/index.js'
 import Home from '../views/Home.vue'
 import LoginPage from '../views/LoginPage.vue'
 import ListarUsuariosPage from '../views/usuario/ListarUsuariosPage'
@@ -30,57 +31,68 @@ const routes = [
   {
     path: '/usuario/listar',
     name: 'ListarUsuariosPage',
-    component: ListarUsuariosPage
+    component: ListarUsuariosPage,
+    meta: { protectedRoute: true }
   },
   {
     path: '/usuario/registrar',
     name: 'RegistrarUsuarioPage',
-    component: RegistrarUsuarioPage
+    component: RegistrarUsuarioPage,
+    meta: { protectedRoute: true }
   },
   {
     path: '/usuario/editar/:idUser',
     name: 'EditarUsuarioPage',
-    component: EditarUsuarioPage
+    component: EditarUsuarioPage,
+    meta: { protectedRoute: true }
   },
   {
     path: '/cliente/listar',
     name: 'ListarClientesPage',
-    component: ListarClientesPage
+    component: ListarClientesPage,
+    meta: { protectedRoute: true }
   },
   {
     path: '/cliente/registrar',
     name: 'RegistrarClientePage',
-    component: RegistrarClientePage
+    component: RegistrarClientePage,
+    meta: { protectedRoute: true }
   },
   {
     path: '/cliente/editar/:idCustomer',
     name: 'EditarClientePage',
-    component: EditarClientePage
+    component: EditarClientePage,
+    meta: { protectedRoute: true }
   },
   {
     path: '/empleado/listar',
     name: 'ListarEmpleadosPage',
-    component: ListarEmpleadosPage
+    component: ListarEmpleadosPage,
+    meta: { protectedRoute: true }
   },
   {
     path: '/empleado/registrar',
     name: 'RegistrarEmpleadoPage',
-    component: RegistrarEmpleadoPage
+    component: RegistrarEmpleadoPage,
+    meta: { protectedRoute: true }
   },
   {
     path: '/empleado/editar/:idEmployee',
     name: 'EditarEmpleadoPage',
-    component: EditarEmpleadoPage
+    component: EditarEmpleadoPage,
+    meta: { protectedRoute: true }
   },
   {
     path: '/solicitud',
     name: 'RealizarSolicitudPage',
-    component: RealizarSolicitudPage
+    component: RealizarSolicitudPage,
+    meta: { protectedRoute: true }
   },
   {
     path: '/analista/solicitudes',
     name: 'SolicitudesRecibidasPage',
-    component: SolicitudesRecibidasPage
+    component: SolicitudesRecibidasPage,
+    meta: { protectedRoute: true }
   },
 ]
 
@@ -89,5 +101,32 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  const isProtectedRoute = to.matched.some(route => route.meta.protectedRoute)
+  const JWT = localStorage.getItem("OptimalSolutionsJWT")
+
+  if (JWT == null) {
+    next({ path: '/login' })
+  } else {
+    if (isProtectedRoute && isExpiredJWT(JWT)) {
+      next({ path: '/login' })
+    } else {
+      store.commit('PROCESS_JWT', JWT)
+      next()
+    }
+  }
+});
+
+const isExpiredJWT = (token) => {
+  try {
+    const jwtExpired = JSON.parse(atob(token.split('.')[1])).exp;
+    const currentTimestampInSeconds = Math.floor(Date.now() / 1000);
+    return currentTimestampInSeconds - jwtExpired >= 0 ? true : false;
+  } catch (error) {
+    console.error(error);
+    return true;
+  }
+};
 
 export default router
