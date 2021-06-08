@@ -24,6 +24,21 @@ const actions = {
             return false;
         }
     },
+    async fetchAllEnabledCustomerRequests({ getters }) {
+        try {
+            const response = await axios({
+                method: 'get',
+                baseURL: getters["apiBaseURL"],
+                url: '/customer-requests/enabled/true',
+                headers: { 'Authorization': 'Bearer ' + getters['JWT'] },
+            });
+
+            return response.status == 200 ? response.data : [];
+        } catch (error) {
+            console.error(error);
+            return [];
+        }
+    },
 }
 
 const getters = {

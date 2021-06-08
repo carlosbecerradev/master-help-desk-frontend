@@ -4,7 +4,9 @@
       <div class="main">
         <b-navbar variant="faded" type="light">
           <b-navbar-brand
-            ><span class="main-header-title">Solicitudes Recibidas</span></b-navbar-brand
+            ><span class="main-header-title"
+              >Solicitudes Recibidas</span
+            ></b-navbar-brand
           >
           <user-dropdown></user-dropdown>
         </b-navbar>
@@ -12,11 +14,7 @@
 
       <div class="main-body">
         <div class="list">
-          <div class="list-header">
-            <router-link to="/empleado/registrar" class="ml-auto btn btn-purple"
-              >Registrar Empleados</router-link
-            >
-          </div>
+          <div class="list-header"></div>
           <div class="list-body">
             <b-table
               id="employees-table"
@@ -27,14 +25,28 @@
               :per-page="perPage"
               :current-page="currentPage"
             >
+              <!-- A custom formatted column -->
+              <template #cell(customerDto)="data">
+                <b-button
+                  variant="info"
+                  @click="
+                    $bvModal.show('bv-modal-customer-info');
+                    customerInfo = data.item.customerDto;
+                  "
+                  >Ver</b-button
+                >
+              </template>
               <!-- A virtual composite column -->
               <template #cell(actions)="data">
                 <div class="d-flex">
-                  <router-link
-                    :to="{ path: '/empleado/editar/' + data.item.id }"
-                    class="ml-auto btn btn-primary btn-sm"
-                    >Generar Ticket</router-link
-                  >
+                  <b-button
+                  variant="success"
+                  @click="
+                    $bvModal.show('bv-modal-generate-ticket');
+                    customerRequestSelected = data.item;
+                  "
+                  >Generar Ticket</b-button
+                >
                 </div>
               </template>
             </b-table>
@@ -47,6 +59,9 @@
               aria-controls="employees-table"
             >
             </b-pagination>
+
+            <customer-info-modal :data="customerInfo" />
+            <generar-ticket-modal :data="customerRequestSelected"/>
           </div>
         </div>
       </div>
@@ -55,39 +70,61 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import AnalistaPageLayout from "@/layouts/AnalistaPageLayout";
 import UserDropdown from "@/components/auth/UserDropdown";
+import CustomerInfoModal from "../../components/modals/CustomerInfoModal";
+import GenerarTicketModal from '../../components/modals/GenerarTicketModal';
 
 export default {
   data() {
     return {
       perPage: 10,
       currentPage: 1,
-      items: [
-        {"id": 1, "customer": "Carlo Alberto Becerra Hernandez", "requestType": "Problemas de Hardware", "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", "enabled": true},
-        {"id": 2, "customer": "Panduro", "requestType": "Problemas de Hardware", "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", "enabled": true},
-        {"id": 3, "customer": "Panduro", "requestType": "Problemas de Hardware", "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", "enabled": true},
-        {"id": 4, "customer": "Panduro", "requestType": "Problemas de Hardware", "description": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", "enabled": true},
-      ],
+      items: [],
       fields: [
         { key: "id", label: "Id" },
-        { key: "customer", label: "Ciente" },
-        { key: "requestType", label: "TIpo de solicitud" },
-        { key: "description", label: "Descripción" },
         {
-          key: "enabled",
-          label: "Disponible",
+          key: "customerDto",
+          label: "Ciente",
           formatter: (value) => {
-            return value ? "Si" : "No";
+            return `${value.name} ${value.surname}`;
           },
         },
+        {
+          key: "requestType",
+          label: "TIpo de solicitud",
+          formatter: (value) => {
+            return value.name;
+          },
+        },
+        { key: "description", label: "Descripción" },
+        { key: "createdAt", label: "F. Recibida" },
         { key: "actions", label: "Acciones" },
       ],
+      customerInfo: {},
+      customerRequestSelected: {},
     };
+  },
+  computed: {
+    ...mapGetters(["AllEnabledCustomerRequestList"]),
+    rows() {
+      return this.items.length;
+    },
+  },
+  methods: {
+    ...mapActions(["fetchAllEnabledCustomerRequests"]),
+  },
+  async mounted() {
+    this.items = await this.fetchAllEnabledCustomerRequests();
   },
   components: {
     AnalistaPageLayout,
     UserDropdown,
+    CustomerInfoModal,
+    GenerarTicketModal,
   },
 };
 </script>
+    Custome
+    GenerarTicketModalrInfoModal
