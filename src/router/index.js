@@ -21,12 +21,14 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta: { protectedRoute: false }
   },
   {
     path: '/login',
     name: 'LoginPage',
-    component: LoginPage
+    component: LoginPage,
+    meta: { protectedRoute: false }
   },
   {
     path: '/usuario/listar',
@@ -105,17 +107,22 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   const isProtectedRoute = to.matched.some(route => route.meta.protectedRoute)
   const JWT = localStorage.getItem("OptimalSolutionsJWT")
-
-  if (JWT == null) {
-    next({ path: '/login' })
-  } else {
-    if (isProtectedRoute && isExpiredJWT(JWT)) {
+  console.log("JWT", JWT)
+  if(isProtectedRoute) {
+    if (JWT == null) {
       next({ path: '/login' })
     } else {
-      store.commit('PROCESS_JWT', JWT)
-      next()
+      if (isExpiredJWT(JWT)) {
+        next({ path: '/login' })
+      } else {
+        store.commit('PROCESS_JWT', JWT)
+        next()
+      }
     }
+  } else {
+    next()
   }
+  
 });
 
 const isExpiredJWT = (token) => {
