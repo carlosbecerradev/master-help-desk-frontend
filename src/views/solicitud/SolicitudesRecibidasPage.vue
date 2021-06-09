@@ -21,7 +21,7 @@
               hover
               responsive
               :fields="fields"
-              :items="items"
+              :items="enabledCustomerRequestList"
               :per-page="perPage"
               :current-page="currentPage"
             >
@@ -81,7 +81,6 @@ export default {
     return {
       perPage: 10,
       currentPage: 1,
-      items: [],
       fields: [
         { key: "id", label: "Id" },
         {
@@ -107,16 +106,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["AllEnabledCustomerRequestList"]),
+    ...mapGetters(["enabledCustomerRequestList",]),
     rows() {
-      return this.items.length;
+      return this.enabledCustomerRequestList.length;
     },
   },
   methods: {
     ...mapActions(["fetchAllEnabledCustomerRequests"]),
   },
-  async mounted() {
-    this.items = await this.fetchAllEnabledCustomerRequests();
+  mounted() {
+    this.fetchAllEnabledCustomerRequests();
   },
   components: {
     AnalistaPageLayout,

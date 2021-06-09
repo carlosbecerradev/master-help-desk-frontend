@@ -2,6 +2,7 @@ const axios = require('axios');
 import router from '../router/index.js'
 
 const state = {
+    enabled_customer_request_list: [],
 }
 
 const mutations = {
@@ -24,7 +25,7 @@ const actions = {
             return false;
         }
     },
-    async fetchAllEnabledCustomerRequests({ getters }) {
+    async fetchAllEnabledCustomerRequests({ getters, state }) {
         try {
             const response = await axios({
                 method: 'get',
@@ -33,15 +34,17 @@ const actions = {
                 headers: { 'Authorization': 'Bearer ' + getters['JWT'] },
             });
 
-            return response.status == 200 ? response.data : [];
+            if (response.status == 200) {
+                state.enabled_customer_request_list = response.data
+            }
         } catch (error) {
             console.error(error);
-            return [];
         }
     },
 }
 
 const getters = {
+    enabledCustomerRequestList: state => state.enabled_customer_request_list,
 }
 
 export default {
