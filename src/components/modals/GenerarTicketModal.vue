@@ -66,7 +66,7 @@ export default {
       "fetchAllEnabledCustomerRequests",
     ]),
     calcEstimatedTime() {
-      if (parseInt(this.minutes, 10) <= 0) {
+      if (parseInt(this.minutes, 10) <= 0 || this.minutes == "") {
         this.ticket.estimatedTime = null;
       } else {
         let estimatedTimeDate = new Date(
