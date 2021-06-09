@@ -14,6 +14,7 @@ import RegistrarEmpleadoPage from '../views/empleado/RegistrarEmpleadoPage'
 import EditarEmpleadoPage from '../views/empleado/EditarEmpleadoPage'
 import RealizarSolicitudPage from '../views/solicitud/RealizarSolicitudPage'
 import SolicitudesRecibidasPage from '../views/solicitud/SolicitudesRecibidasPage'
+import ListarTicketsAsignadosPage from '../views/ticket/ListarTicketsAsignadosPage'
 
 Vue.use(VueRouter)
 
@@ -94,6 +95,12 @@ const routes = [
     path: '/analista/solicitudes',
     name: 'SolicitudesRecibidasPage',
     component: SolicitudesRecibidasPage,
+    meta: { protectedRoute: true }
+  },
+  {
+    path: '/tecnico/tickets',
+    name: 'ListarTicketsAsignadosPage',
+    component: ListarTicketsAsignadosPage,
     meta: { protectedRoute: true }
   },
 ]
