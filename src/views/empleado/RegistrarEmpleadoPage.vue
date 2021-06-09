@@ -90,6 +90,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import AdminPageLayout from "../../layouts/AdminPageLayout";
 import UserDropdown from "@/components/auth/UserDropdown";
 
@@ -111,15 +112,18 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters(["apiBaseURL", "JWT"]),
+  },
   methods: {
     async fetchAuthorities() {
       try {
-        const response = await fetch(
-          "http://localhost:8080/api/users/authorities",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${this.apiBaseURL}/users/authorities`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${this.JWT}`,
+          },
+        });
 
         this.authorities =
           response.status == 200 ? await response.json() : null;
@@ -132,10 +136,11 @@ export default {
     },
     async fetchInsertEmployee() {
       try {
-        const response = await fetch("http://localhost:8080/api/employees", {
+        const response = await fetch(`${this.apiBaseURL}/employees`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
+            Authorization: `Bearer ${this.JWT}`,
           },
           body: JSON.stringify(this.employee),
         });

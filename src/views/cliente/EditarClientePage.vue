@@ -98,6 +98,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import AdminPageLayout from "../../layouts/AdminPageLayout";
 import UserDropdown from "@/components/auth/UserDropdown";
 
@@ -121,15 +122,18 @@ export default {
       idCustomer: 0,
     };
   },
+  computed: {
+    ...mapGetters(["apiBaseURL", "JWT"]),
+  },
   methods: {
     async fetchAllGenders() {
       try {
-        const response = await fetch(
-          "http://localhost:8080/api/customers/genders",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${this.apiBaseURL}/customers/genders`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${this.JWT}`,
+          },
+        });
 
         this.genderOptions =
           response.status == 200 ? await response.json() : [];
@@ -139,10 +143,11 @@ export default {
     },
     async fetchUpdateCustomer() {
       try {
-        const response = await fetch("http://localhost:8080/api/customers", {
+        const response = await fetch(`${this.apiBaseURL}/customers`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",
+            Authorization: `Bearer ${this.JWT}`,
           },
           body: JSON.stringify(this.customer),
         });
@@ -167,9 +172,12 @@ export default {
     async fetchCustomerById() {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/customers/" + this.idCustomer,
+          `${this.apiBaseURL}/customers/${this.idCustomer}`,
           {
             method: "GET",
+            headers: {
+              Authorization: `Bearer ${this.JWT}`,
+            },
           }
         );
 

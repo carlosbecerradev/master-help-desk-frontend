@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import AdminPageLayout from "../../layouts/AdminPageLayout";
 import UserDropdown from "@/components/auth/UserDropdown";
 
@@ -89,15 +90,18 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapGetters(["apiBaseURL", "JWT"]),
+  },
   methods: {
     async fetchAuthorities() {
       try {
-        const response = await fetch(
-          "http://localhost:8080/api/users/authorities",
-          {
-            method: "GET",
-          }
-        );
+        const response = await fetch(`${this.apiBaseURL}/users/authorities`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${this.JWT}`,
+          },
+        });
 
         this.authorities =
           response.status == 200 ? await response.json() : null;
@@ -110,10 +114,11 @@ export default {
     async fetchUpdateUser() {
       try {
         console.log(this.user);
-        const response = await fetch("http://localhost:8080/api/users", {
+        const response = await fetch(`${this.apiBaseURL}/users`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",
+            Authorization: `Bearer ${this.JWT}`,
           },
           body: JSON.stringify(this.user),
         });
@@ -138,9 +143,12 @@ export default {
     async fetchUserById() {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/users/" + this.$route.params.idUser,
+          `${this.apiBaseURL}/users/${this.$route.params.idUser}`,
           {
             method: "GET",
+            headers: {
+              Authorization: `Bearer ${this.JWT}`,
+            },
           }
         );
 

@@ -70,6 +70,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import AdminPageLayout from "../../layouts/AdminPageLayout";
 import UserDropdown from "@/components/auth/UserDropdown";
 
@@ -89,13 +90,17 @@ export default {
       idEmployee: 0,
     };
   },
+  computed: {
+    ...mapGetters(["apiBaseURL", "JWT"]),
+  },
   methods: {
     async fetchUpdateEmployee() {
       try {
-        const response = await fetch("http://localhost:8080/api/employees", {
+        const response = await fetch(`${this.apiBaseURL}/employees`, {
           method: "PUT",
           headers: {
             "content-type": "application/json",
+            Authorization: `Bearer ${this.JWT}`,
           },
           body: JSON.stringify(this.employee),
         });
@@ -120,9 +125,12 @@ export default {
     async fetchEmployeeById() {
       try {
         const response = await fetch(
-          "http://localhost:8080/api/employees/" + this.idEmployee,
+          `${this.apiBaseURL}/employees/${this.idEmployee}`,
           {
             method: "GET",
+            headers: {
+              Authorization: `Bearer ${this.JWT}`,
+            },
           }
         );
 

@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import AdminPageLayout from "../../layouts/AdminPageLayout";
 import UserDropdown from "@/components/auth/UserDropdown";
 
@@ -92,6 +93,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["apiBaseURL", "JWT"]),
     rows() {
       return this.items.length;
     },
@@ -99,8 +101,11 @@ export default {
   methods: {
     async fetchEmpleados() {
       try {
-        const response = await fetch("http://localhost:8080/api/employees", {
+        const response = await fetch(`${this.apiBaseURL}/employees`, {
           method: "GET",
+          headers: {
+            Authorization: `Bearer ${this.JWT}`,
+          },
         });
         this.items = response.status == 200 ? await response.json() : [];
       } catch (error) {
@@ -138,12 +143,18 @@ export default {
           await this.fetchEmpleados();
         });
 
+      let jwt = this.JWT;
+      let apiBaseUrl = this.apiBaseURL;
+
       async function fetchDeleteEmpleadoById() {
         try {
           const response = await fetch(
-            "http://localhost:8080/api/employees/" + idEmpleado,
+            `${apiBaseUrl}/employees/${idEmpleado}`,
             {
               method: "DELETE",
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
             }
           );
 
