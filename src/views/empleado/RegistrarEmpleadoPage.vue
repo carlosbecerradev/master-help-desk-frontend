@@ -75,7 +75,7 @@
                 <div class="mt-4">
                   <b-button type="submit" variant="purple">Confirmar</b-button>
                   <router-link
-                    to="/cliente/listar"
+                    to="/empleado/listar"
                     class="btn btn-danger text-white ml-2"
                     >Cancelar</router-link
                   >

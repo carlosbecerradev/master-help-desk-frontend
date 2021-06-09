@@ -15,6 +15,7 @@
           <div class="list">
             <div class="list-header">
               <router-link
+                v-if="false"
                 to="/usuario/registrar"
                 class="ml-auto btn btn-purple"
                 >Registrar Usuario</router-link
@@ -148,7 +149,7 @@ export default {
 
       let jwt = this.JWT;
       let apiBaseUrl = this.apiBaseURL;
-      
+
       async function fetchDeleteUserById() {
         try {
           const response = await fetch(`${apiBaseUrl}/users/${idUser}`, {
