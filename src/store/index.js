@@ -10,7 +10,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    api_base_url: "http://9f6285a1bdcb.ngrok.io/api",
+    api_base_url: "https://9f6285a1bdcb.ngrok.io/api",
   },
   mutations: {
   },
