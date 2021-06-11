@@ -8,6 +8,8 @@
       :items="ticketsPendientesAsignadosList"
       :per-page="perPage"
       :current-page="currentPage"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc"
     >
       <!-- A virtual composite column -->
       <template #cell(customer)="data">
@@ -65,6 +67,8 @@ export default {
     return {
       perPage: 10,
       currentPage: 1,
+      sortBy: "ticketPriority",
+      sortDesc: false,
       fields: [
         { key: "id", label: "Id" },
         {
@@ -78,6 +82,7 @@ export default {
         {
           key: "ticketPriority",
           label: "Prioridad",
+          sortable: true,
         },
         {
           key: "estimatedTime",
