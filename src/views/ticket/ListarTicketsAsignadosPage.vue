@@ -19,8 +19,12 @@
                 <b-tab title="Tickets Pendientes" active>
                   <tickets-pendientes-tab />
                 </b-tab>
-                <b-tab title="Tickets en Atención"><p>WIP</p></b-tab>
-                <b-tab title="Tickets Terminados"><p>WIP</p></b-tab>
+                <b-tab title="Tickets en Atención">
+                  <tickets-en-atencion-tab />
+                </b-tab>
+                <b-tab title="Tickets Terminados">
+                  <tickets-terminados-tab />
+                </b-tab>
               </b-tabs>
             </div>
           </div>
@@ -38,6 +42,8 @@ import { mapGetters } from "vuex";
 import TecnicoPageLayout from "@/layouts/TecnicoPageLayout";
 import UserDropdown from "@/components/auth/UserDropdown";
 import TicketsPendientesTab from "@/components/tabs/TicketsPendientesTab";
+import TicketsEnAtencionTab from "@/components/tabs/TicketsEnAtencionTab";
+import TicketsTerminadosTab from "@/components/tabs/TicketsTerminadosTab";
 import CustomerInfoModal from "../../components/modals/CustomerInfoModal";
 import CustomerRequestInfoModal from "../../components/modals/CustomerRequestInfoModal";
 
@@ -49,6 +55,8 @@ export default {
     TecnicoPageLayout,
     UserDropdown,
     TicketsPendientesTab,
+    TicketsEnAtencionTab,
+    TicketsTerminadosTab,
     CustomerInfoModal,
     CustomerRequestInfoModal,
   },

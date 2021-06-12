@@ -3,6 +3,8 @@ const axios = require('axios');
 const state = {
     ticket_priority_list: [],
     ticket_pendientes_asignados_list: [],
+    ticket_en_atencion_asignados_list: [],
+    ticket_terminados_asignados_list: [],
     customer_info: {},
     customer_request_info: {
         requestType: {
@@ -59,6 +61,34 @@ const actions = {
             console.log(error);
         }
     },
+    async fetchTicketEnAtencionAsignadosList({ getters, state }) {
+        try {
+            const response = await axios({
+                method: 'get',
+                baseURL: getters["apiBaseURL"],
+                url: '/tickets/ticketStatus=ATENDIENDO',
+                headers: { 'Authorization': 'Bearer ' + getters['JWT'] },
+            });
+            state.ticket_en_atencion_asignados_list = response.data;
+            console.log(response.data)
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    async fetchTicketTerminadosAsignadosList({ getters, state }) {
+        try {
+            const response = await axios({
+                method: 'get',
+                baseURL: getters["apiBaseURL"],
+                url: '/tickets/ticketStatus=CERRADO',
+                headers: { 'Authorization': 'Bearer ' + getters['JWT'] },
+            });
+            state.ticket_terminados_asignados_list = response.data;
+            console.log(response.data)
+        } catch (error) {
+            console.log(error);
+        }
+    },
     fillCustomerInfoModal({ state }, data) {
         state.customer_info = data;
     },
@@ -70,6 +100,8 @@ const actions = {
 const getters = {
     TicketPriorityList: state => state.ticket_priority_list,
     ticketsPendientesAsignadosList: state => state.ticket_pendientes_asignados_list,
+    ticketsEnAtencionAsignadosList: state => state.ticket_en_atencion_asignados_list,
+    ticketsTerminadosAsignadosList: state => state.ticket_terminados_asignados_list,
     customerInfo: state => state.customer_info,
     customerRequestInfo: state => state.customer_request_info,
 }
