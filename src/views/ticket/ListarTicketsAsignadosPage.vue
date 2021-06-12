@@ -25,21 +25,32 @@
             </div>
           </div>
         </div>
+
+        <customer-info-modal :data="customerInfo" />
+        <customer-request-info-modal :data="customerRequestInfo" />
       </div>
     </tecnico-page-layout>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import TecnicoPageLayout from "@/layouts/TecnicoPageLayout";
 import UserDropdown from "@/components/auth/UserDropdown";
 import TicketsPendientesTab from "@/components/tabs/TicketsPendientesTab";
+import CustomerInfoModal from "../../components/modals/CustomerInfoModal";
+import CustomerRequestInfoModal from "../../components/modals/CustomerRequestInfoModal";
 
 export default {
+  computed: {
+    ...mapGetters(["customerInfo", "customerRequestInfo"]),
+  },
   components: {
     TecnicoPageLayout,
     UserDropdown,
     TicketsPendientesTab,
+    CustomerInfoModal,
+    CustomerRequestInfoModal,
   },
 };
 </script>

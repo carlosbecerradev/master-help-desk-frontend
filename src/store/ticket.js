@@ -3,6 +3,12 @@ const axios = require('axios');
 const state = {
     ticket_priority_list: [],
     ticket_pendientes_asignados_list: [],
+    customer_info: {},
+    customer_request_info: {
+        requestType: {
+            name: "",
+        }
+    },
 }
 
 const mutations = {
@@ -53,11 +59,19 @@ const actions = {
             console.log(error);
         }
     },
+    fillCustomerInfoModal({ state }, data) {
+        state.customer_info = data;
+    },
+    fillCustomerRequestInfoModal({ state }, data) {
+        state.customer_request_info = data;
+    },
 }
 
 const getters = {
     TicketPriorityList: state => state.ticket_priority_list,
-    ticketsPendientesAsignadosList: stat => stat.ticket_pendientes_asignados_list,
+    ticketsPendientesAsignadosList: state => state.ticket_pendientes_asignados_list,
+    customerInfo: state => state.customer_info,
+    customerRequestInfo: state => state.customer_request_info,
 }
 
 export default {

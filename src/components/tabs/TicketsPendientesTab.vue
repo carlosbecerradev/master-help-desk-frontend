@@ -17,7 +17,7 @@
           variant="info"
           @click="
             $bvModal.show('bv-modal-customer-info');
-            customerInfo = data.item.customerRequestDto.customerDto;
+            fillCustomerInfoModal(data.item.customerRequestDto.customerDto);
           "
           >Ver</b-button
         >
@@ -28,7 +28,7 @@
           variant="info"
           @click="
             $bvModal.show('bv-modal-customer-request-info');
-            customerRequestInfo = data.item.customerRequestDto;
+            fillCustomerRequestInfoModal(data.item.customerRequestDto);
           "
           >Ver</b-button
         >
@@ -51,16 +51,11 @@
       aria-controls="employees-table"
     >
     </b-pagination>
-
-    <customer-info-modal :data="customerInfo" />
-    <customer-request-info-modal :data="customerRequestInfo" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import CustomerInfoModal from "../../components/modals/CustomerInfoModal";
-import CustomerRequestInfoModal from "../../components/modals/CustomerRequestInfoModal";
 
 export default {
   data() {
@@ -91,8 +86,6 @@ export default {
         { key: "createdAt", label: "F. Creación" },
         { key: "actions", label: "Acciones" },
       ],
-      customerInfo: {},
-      customerRequestInfo: {},
     };
   },
   computed: {
@@ -102,14 +95,15 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchTicketPendientesAsignadosList"]),
+    ...mapActions([
+      "fetchTicketPendientesAsignadosList",
+      "fillCustomerInfoModal",
+      "fillCustomerRequestInfoModal",
+    ]),
   },
   mounted() {
     this.fetchTicketPendientesAsignadosList();
   },
-  components: {
-    CustomerInfoModal,
-    CustomerRequestInfoModal,
-  },
+  components: {},
 };
 </script>
