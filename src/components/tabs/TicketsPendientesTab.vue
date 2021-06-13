@@ -56,6 +56,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import formatToDMYHM from "@/utils/format/DateTimeFormatUtil";
 
 export default {
   data() {
@@ -82,8 +83,17 @@ export default {
         {
           key: "estimatedTime",
           label: "Tiempo Estimado",
+          formatter: (value) => {
+            return this.formatToDMYHM(value);
+          },
         },
-        { key: "createdAt", label: "F. Creación" },
+        {
+          key: "createdAt",
+          label: "F. Creación",
+          formatter: (value) => {
+            return this.formatToDMYHM(value);
+          },
+        },
         { key: "actions", label: "Acciones" },
       ],
     };
@@ -126,6 +136,7 @@ export default {
           await this.fetchTicketPendientesAsignadosList();
         });
     },
+    formatToDMYHM,
   },
   mounted() {
     this.fetchTicketPendientesAsignadosList();

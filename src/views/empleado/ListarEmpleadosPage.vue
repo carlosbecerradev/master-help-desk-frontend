@@ -68,6 +68,7 @@
 import { mapGetters } from "vuex";
 import AdminPageLayout from "../../layouts/AdminPageLayout";
 import UserDropdown from "@/components/auth/UserDropdown";
+import formatToDMY from "@/utils/format/DateFormatUtil";
 
 export default {
   data() {
@@ -86,7 +87,13 @@ export default {
             return value ? "Si" : "No";
           },
         },
-        { key: "createdAt", label: "Fecha de Creación" },
+        {
+          key: "createdAt",
+          label: "Fecha de Creación",
+          formatter: (value) => {
+            return this.formatToDMY(value);
+          },
+        },
         { key: "userId", label: "Id de Usuario" },
         { key: "actions", label: "Acciones" },
       ],
@@ -164,6 +171,7 @@ export default {
         }
       }
     },
+    formatToDMY,
   },
   mounted() {
     this.fetchEmpleados();

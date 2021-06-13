@@ -8,12 +8,14 @@
       <b-list-group-item>Id: {{ data.id }}</b-list-group-item>
       <b-list-group-item>Tipo de Solicitud: {{ data.requestType.name }}</b-list-group-item>
       <b-list-group-item>Descripción: {{ data.description }}</b-list-group-item>
-      <b-list-group-item>Creado: {{ data.createdAt }}</b-list-group-item>
+      <b-list-group-item>Creado: {{ formatToDMYHM(data.createdAt) }}</b-list-group-item>
     </b-list-group>
   </b-modal>
 </template>
 
 <script>
+import formatToDMYHM from "@/utils/format/DateTimeFormatUtil";
+
 export default {
   props: {
     data: {
@@ -22,5 +24,8 @@ export default {
       default: {},
     },
   },
+  methods: {
+    formatToDMYHM,
+  }
 };
 </script>

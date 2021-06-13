@@ -48,6 +48,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import formatToDMYHM from "@/utils/format/DateTimeFormatUtil";
 
 export default {
   data() {
@@ -73,9 +74,25 @@ export default {
         {
           key: "estimatedTime",
           label: "Tiempo Estimado",
+          formatter: (value) => {
+            return this.formatToDMYHM(value);
+          },
         },
-        { key: "createdAt", label: "F. Creación", sortable: true },
-        { key: "finishedAt", label: "F. Terminado" },
+        {
+          key: "createdAt",
+          label: "F. Creación",
+          sortable: true,
+          formatter: (value) => {
+            return this.formatToDMYHM(value);
+          },
+        },
+        {
+          key: "finishedAt",
+          label: "F. Terminado",
+          formatter: (value) => {
+            return this.formatToDMYHM(value);
+          },
+        },
       ],
       customerInfo: {},
       customerRequestInfo: {},
@@ -93,6 +110,7 @@ export default {
       "fillCustomerInfoModal",
       "fillCustomerRequestInfoModal",
     ]),
+    formatToDMYHM,
   },
   mounted() {
     this.fetchTicketTerminadosAsignadosList();

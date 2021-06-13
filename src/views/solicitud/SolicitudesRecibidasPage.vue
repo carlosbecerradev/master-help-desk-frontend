@@ -40,13 +40,13 @@
               <template #cell(actions)="data">
                 <div class="d-flex">
                   <b-button
-                  variant="success"
-                  @click="
-                    $bvModal.show('bv-modal-generate-ticket');
-                    customerRequestSelected = data.item;
-                  "
-                  >Generar Ticket</b-button
-                >
+                    variant="success"
+                    @click="
+                      $bvModal.show('bv-modal-generate-ticket');
+                      customerRequestSelected = data.item;
+                    "
+                    >Generar Ticket</b-button
+                  >
                 </div>
               </template>
             </b-table>
@@ -61,7 +61,7 @@
             </b-pagination>
 
             <customer-info-modal :data="customerInfo" />
-            <generar-ticket-modal :data="customerRequestSelected"/>
+            <generar-ticket-modal :data="customerRequestSelected" />
           </div>
         </div>
       </div>
@@ -74,7 +74,8 @@ import { mapActions, mapGetters } from "vuex";
 import AnalistaPageLayout from "@/layouts/AnalistaPageLayout";
 import UserDropdown from "@/components/auth/UserDropdown";
 import CustomerInfoModal from "../../components/modals/CustomerInfoModal";
-import GenerarTicketModal from '../../components/modals/GenerarTicketModal';
+import GenerarTicketModal from "../../components/modals/GenerarTicketModal";
+import formatToDMYHM from "@/utils/format/DateTimeFormatUtil";
 
 export default {
   data() {
@@ -98,7 +99,13 @@ export default {
           },
         },
         { key: "description", label: "Descripción" },
-        { key: "createdAt", label: "F. Recibida" },
+        {
+          key: "createdAt",
+          label: "F. Recibida",
+          formatter: (value) => {
+            return this.formatToDMYHM(value);
+          },
+        },
         { key: "actions", label: "Acciones" },
       ],
       customerInfo: {},
@@ -106,13 +113,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["enabledCustomerRequestList",]),
+    ...mapGetters(["enabledCustomerRequestList"]),
     rows() {
       return this.enabledCustomerRequestList.length;
     },
   },
   methods: {
     ...mapActions(["fetchAllEnabledCustomerRequests"]),
+    formatToDMYHM,
   },
   mounted() {
     this.fetchAllEnabledCustomerRequests();
