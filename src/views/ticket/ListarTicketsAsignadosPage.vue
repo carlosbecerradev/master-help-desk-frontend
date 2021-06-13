@@ -16,13 +16,13 @@
             <div class="list-header"></div>
             <div class="list-body">
               <b-tabs content-class="mt-3">
-                <b-tab title="Tickets Pendientes" active>
+                <b-tab title="Tickets Pendientes" active lazy>
                   <tickets-pendientes-tab />
                 </b-tab>
-                <b-tab title="Tickets en Atención">
+                <b-tab title="Tickets en Atención" lazy>
                   <tickets-en-atencion-tab />
                 </b-tab>
-                <b-tab title="Tickets Terminados">
+                <b-tab title="Tickets Terminados" lazy>
                   <tickets-terminados-tab />
                 </b-tab>
               </b-tabs>

@@ -95,6 +95,36 @@ const actions = {
     fillCustomerRequestInfoModal({ state }, data) {
         state.customer_request_info = data;
     },
+    async fetchPickTicketById({ getters }, ticketId) {
+        try {
+            const response = await axios({
+                method: 'put',
+                baseURL: getters["apiBaseURL"],
+                url: `/tickets/pick/${ticketId}`,
+                headers: { 'Authorization': 'Bearer ' + getters['JWT'] },
+            });
+            console.log(response.data)
+            return response.status == 200 ? true : false;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    },
+    async fetchFinishTicketById({ getters }, ticketId) {
+        try {
+            const response = await axios({
+                method: 'put',
+                baseURL: getters["apiBaseURL"],
+                url: '/tickets/finish/' + ticketId,
+                headers: { 'Authorization': 'Bearer ' + getters['JWT'] },
+            });
+            console.log(response.data)
+            return response.status == 200 ? true : false;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    },
 }
 
 const getters = {

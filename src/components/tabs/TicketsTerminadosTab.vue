@@ -54,8 +54,8 @@ export default {
     return {
       perPage: 10,
       currentPage: 1,
-      sortBy: "createdAt",
-      sortDesc: false,
+      sortBy: "finishedAt",
+      sortDesc: true,
       fields: [
         { key: "id", label: "Id" },
         {

@@ -36,7 +36,7 @@
       <!-- A virtual composite column -->
       <template #cell(actions)="data">
         <div class="d-flex">
-          <b-button variant="success" @click="console.log(data.item.id)"
+          <b-button variant="success" @click="terminar(data.item.id)"
             >Terminar</b-button
           >
         </div>
@@ -101,7 +101,33 @@ export default {
       "fetchTicketEnAtencionAsignadosList",
       "fillCustomerInfoModal",
       "fillCustomerRequestInfoModal",
+      "fetchFinishTicketById",
     ]),
+    async terminar(ticketId) {
+      this.$swal
+        .fire({
+          title: "¿Estás seguro?",
+          text: "Una vez cerrado no podrá volverlo a abrir!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, eliminar!",
+          cancelButtonText: "Cancelar",
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            if (await this.fetchFinishTicketById(ticketId)) {
+              this.$swal.fire(
+                "Cerrado!",
+                "El ticket ha sido cerrado.",
+                "success"
+              );
+            }
+          }
+          await this.fetchTicketEnAtencionAsignadosList();
+        });
+    },
   },
   mounted() {
     this.fetchTicketEnAtencionAsignadosList();

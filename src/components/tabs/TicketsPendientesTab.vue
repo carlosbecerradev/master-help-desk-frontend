@@ -36,7 +36,7 @@
       <!-- A virtual composite column -->
       <template #cell(actions)="data">
         <div class="d-flex">
-          <b-button variant="success" @click="console.log(data.item.id)"
+          <b-button variant="success" @click="atender(data.item.id)"
             >Atender</b-button
           >
         </div>
@@ -99,7 +99,33 @@ export default {
       "fetchTicketPendientesAsignadosList",
       "fillCustomerInfoModal",
       "fillCustomerRequestInfoModal",
+      "fetchPickTicketById",
     ]),
+    async atender(ticketId) {
+      this.$swal
+        .fire({
+          title: "¿Estás seguro de Atender este Ticket?",
+          text: "Una vez movido tendrás que terminar de atenderlo!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, eliminar!",
+          cancelButtonText: "Cancelar",
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            if (await this.fetchPickTicketById(ticketId)) {
+              this.$swal.fire(
+                "Ticket en Atención!",
+                "Este ticket va a ser atendido.",
+                "success"
+              );
+            }
+          }
+          await this.fetchTicketPendientesAsignadosList();
+        });
+    },
   },
   mounted() {
     this.fetchTicketPendientesAsignadosList();
