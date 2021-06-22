@@ -15,6 +15,7 @@ import EditarEmpleadoPage from '../views/empleado/EditarEmpleadoPage'
 import RealizarSolicitudPage from '../views/solicitud/RealizarSolicitudPage'
 import SolicitudesRecibidasPage from '../views/solicitud/SolicitudesRecibidasPage'
 import ListarTicketsAsignadosPage from '../views/ticket/ListarTicketsAsignadosPage'
+import ListarTipoDeSolicitudesPage from '../views/solicitud/ListarTipoDeSolicitudesPage.vue'
 
 Vue.use(VueRouter)
 
@@ -103,6 +104,12 @@ const routes = [
     component: ListarTicketsAsignadosPage,
     meta: { protectedRoute: true }
   },
+  {
+    path: '/tipo-de-solicitudes/listar',
+    name: 'ListarTipoDeSolicitudesPage',
+    component: ListarTipoDeSolicitudesPage,
+    meta: { protectedRoute: true }
+  },
 ]
 
 const router = new VueRouter({
@@ -115,7 +122,7 @@ router.beforeEach((to, from, next) => {
   const isProtectedRoute = to.matched.some(route => route.meta.protectedRoute)
   const JWT = localStorage.getItem("OptimalSolutionsJWT")
   console.log("JWT", JWT)
-  if(isProtectedRoute) {
+  if (isProtectedRoute) {
     if (JWT == null) {
       next({ path: '/login' })
     } else {
@@ -129,7 +136,7 @@ router.beforeEach((to, from, next) => {
   } else {
     next()
   }
-  
+
 });
 
 const isExpiredJWT = (token) => {
