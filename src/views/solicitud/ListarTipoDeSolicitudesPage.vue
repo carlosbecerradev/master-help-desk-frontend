@@ -263,7 +263,7 @@ export default {
             title: "Registrado",
           });
           this.fetchTipoDeSolicitudes();
-          this.requestType = null;
+          this.cleanRequestType();
           this.$bvModal.hide("bv-modal-request-type-insert");
         } else {
           this.$swal.fire({
@@ -321,7 +321,7 @@ export default {
             title: "Actualizado",
           });
           this.fetchTipoDeSolicitudes();
-          this.requestType = null;
+          this.cleanRequestType();
           this.$bvModal.hide("bv-modal-request-type-update");
         } else {
           this.$swal.fire({
@@ -333,6 +333,11 @@ export default {
       } catch (error) {
         console.error("EditarEmpleadoPage:fetchUpdateRequestType:", error);
       }
+    },
+    cleanRequestType() {
+      this.requestType.id = null;
+      this.requestType.name = "";
+      this.requestType.enabled = null;
     },
   },
   components: {
