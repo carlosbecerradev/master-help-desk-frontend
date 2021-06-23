@@ -29,6 +29,7 @@
                 :items="items"
                 :per-page="perPage"
                 :current-page="currentPage"
+                responsive="md"
               >
                 <!-- A virtual composite column -->
                 <template #cell(actions)="data">
@@ -81,7 +82,7 @@ export default {
       fields: [
         { key: "id", label: "Id" },
         { key: "username", label: "Nombre de Usuario" },
-        { key: "password", label: "Contraseña" },
+        //{ key: "password", label: "Contraseña" },
         { key: "authority", label: "Rol" },
         { key: "authority", label: "Rol" },
         {
