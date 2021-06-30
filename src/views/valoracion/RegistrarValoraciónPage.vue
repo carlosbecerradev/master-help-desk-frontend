@@ -10,6 +10,12 @@
       </b-container>
     </b-navbar>
 
+    <div class="container mt-2">
+      <b-alert variant="warning" show dismissible>
+        Recuerde: Solo dispone de 24h para realizar la valoración!
+      </b-alert>
+    </div>
+
     <b-container>
       <h1 style="font-size: 34px" class="mt-5 mb-4">
         ¿Cómo calificarías nuestra reciente Atención de Soporte?
@@ -78,35 +84,57 @@ export default {
     },
     async fetchInsertAssessment() {
       this.fillAssessment();
-      try {
-        const response = await fetch(
-          `${this.apiBaseURL}/assessments/free-update`,
-          {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(this.assessment),
-          }
-        );
 
-        if (response.status == 200) {
-          this.$swal.fire({
-            icon: "success",
-            title: "Su Valoración fue exitamente enviada!",
-            text: "Gracias!",
-          });
-          this.$router.push("/");
-        } else {
-          this.$swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Tiene campos que completar o usted ya registro una valoración, intentelo de nuevo!",
-          });
+      this.$swal
+        .fire({
+          title: "¿Estás seguro?",
+          text: "Una vez enviado no podrás modificar tu respuesta!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Si, Enviar!",
+          cancelButtonText: "Cancelar",
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            if (await enviar()) {
+              this.$swal.fire(
+                "Enviardo!",
+                "Su valoración fue registrada. Gracias!",
+                "success"
+              );
+            } else {
+              this.$swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Usted ya registro una valoración o intentelo de nuevo!",
+              });
+            }
+          }
+        });
+
+      const enviar = async () => {
+        try {
+          const response = await fetch(
+            `${this.apiBaseURL}/assessments/free-update`,
+            {
+              method: "PUT",
+              headers: {
+                "content-type": "application/json",
+              },
+              body: JSON.stringify(this.assessment),
+            }
+          );
+          console.log(response)
+          return response.status == 200 ? true : false;
+        } catch (error) {
+          console.error(
+            "RegistrarValoracionPage:fetchInsertAssessment:",
+            error
+          );
         }
-      } catch (error) {
-        console.error("RegistrarValoracionPage:fetchInsertAssessment:", error);
-      }
+      };
     },
     fillAssessment() {
       this.assessment.assessmentType = this.convertRatingValue(this.value);
