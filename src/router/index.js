@@ -16,6 +16,7 @@ import RealizarSolicitudPage from '../views/solicitud/RealizarSolicitudPage'
 import SolicitudesRecibidasPage from '../views/solicitud/SolicitudesRecibidasPage'
 import ListarTicketsAsignadosPage from '../views/ticket/ListarTicketsAsignadosPage'
 import ListarTipoDeSolicitudesPage from '../views/solicitud/ListarTipoDeSolicitudesPage.vue'
+import RegistrarValoraciónPage from '../views/valoracion/RegistrarValoraciónPage.vue'
 
 Vue.use(VueRouter)
 
@@ -109,6 +110,12 @@ const routes = [
     name: 'ListarTipoDeSolicitudesPage',
     component: ListarTipoDeSolicitudesPage,
     meta: { protectedRoute: true }
+  },
+  {
+    path: '/valorar-atencion/:ticketToken',
+    name: 'RegistrarValoraciónPage',
+    component: RegistrarValoraciónPage,
+    meta: { protectedRoute: false }
   },
 ]
 
