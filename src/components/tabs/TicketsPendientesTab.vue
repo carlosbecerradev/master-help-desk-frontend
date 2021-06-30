@@ -84,7 +84,7 @@ export default {
           key: "estimatedTime",
           label: "Tiempo Estimado",
           formatter: (value) => {
-            return this.formatToDMYHM(value);
+            return value == null ? "Sin estimar" : this.formatToDMYHM(value);
           },
         },
         {
