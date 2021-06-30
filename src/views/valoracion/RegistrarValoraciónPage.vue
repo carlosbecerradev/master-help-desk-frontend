@@ -100,7 +100,7 @@ export default {
           if (result.isConfirmed) {
             if (await enviar()) {
               this.$swal.fire(
-                "Enviardo!",
+                "Enviado!",
                 "Su valoración fue registrada. Gracias!",
                 "success"
               );

@@ -64,7 +64,7 @@ export default {
       perPage: 10,
       currentPage: 1,
       sortBy: "ticketPriority",
-      sortDesc: false,
+      sortDesc: true,
       fields: [
         { key: "id", label: "Id" },
         {
@@ -93,6 +93,7 @@ export default {
           formatter: (value) => {
             return this.formatToDMYHM(value);
           },
+          sortable: true,
         },
         { key: "actions", label: "Acciones" },
       ],
