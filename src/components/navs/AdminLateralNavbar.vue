@@ -71,13 +71,28 @@
         </details>
 
         <details>
-          <summary class="lateral-navbar-nav-item">Tipo de Solicitudes</summary>
+          <summary class="lateral-navbar-nav-item">
+            Mant. T. Solicitudes
+          </summary>
           <b-list-group>
             <b-list-group-item>
               <router-link
                 to="/tipo-de-solicitudes/listar"
                 class="lateral-navbar-nav-item-link d-block"
                 >Listar</router-link
+              >
+            </b-list-group-item>
+          </b-list-group>
+        </details>
+
+        <details>
+          <summary class="lateral-navbar-nav-item">Reportes</summary>
+          <b-list-group>
+            <b-list-group-item>
+              <router-link
+                to="/reporte/valoracion-tecnico"
+                class="lateral-navbar-nav-item-link d-block"
+                >Valoraciones</router-link
               >
             </b-list-group-item>
           </b-list-group>

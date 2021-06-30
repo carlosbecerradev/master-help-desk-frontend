@@ -17,6 +17,7 @@ import SolicitudesRecibidasPage from '../views/solicitud/SolicitudesRecibidasPag
 import ListarTicketsAsignadosPage from '../views/ticket/ListarTicketsAsignadosPage'
 import ListarTipoDeSolicitudesPage from '../views/solicitud/ListarTipoDeSolicitudesPage.vue'
 import RegistrarValoraciónPage from '../views/valoracion/RegistrarValoraciónPage.vue'
+import AssessmentReportPage from '../views/reporte/AssessmentReportPage.vue'
 
 Vue.use(VueRouter)
 
@@ -116,6 +117,12 @@ const routes = [
     name: 'RegistrarValoraciónPage',
     component: RegistrarValoraciónPage,
     meta: { protectedRoute: false }
+  },
+  {
+    path: '/reporte/valoracion-tecnico',
+    name: 'AssessmentReportPage',
+    component: AssessmentReportPage,
+    meta: { protectedRoute: true }
   },
 ]
 

@@ -34,6 +34,19 @@
             </b-list-group-item>
           </b-list-group>
         </details>
+
+        <details>
+          <summary class="lateral-navbar-nav-item">Reportes</summary>
+          <b-list-group>
+            <b-list-group-item>
+              <router-link
+                to="/reporte/valoracion-tecnico"
+                class="lateral-navbar-nav-item-link d-block"
+                >Valoraciones</router-link
+              >
+            </b-list-group-item>
+          </b-list-group>
+        </details>
       </div>
     </div>
   </div>
