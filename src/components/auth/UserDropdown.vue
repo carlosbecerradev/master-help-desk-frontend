@@ -14,7 +14,7 @@
       </b-nav-item-dropdown>
     </b-nav>
     <b-nav v-else>
-      <b-button variant="light">
+      <b-button to="/login" variant="light">
         <span class="mr-2">Ingresar</span>
         <span><b-icon icon="person-circle" aria-hidden="true"></b-icon></span>
       </b-button>
