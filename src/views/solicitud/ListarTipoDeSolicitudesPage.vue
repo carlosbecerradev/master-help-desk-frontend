@@ -32,11 +32,14 @@
               :items="items"
               :per-page="perPage"
               :current-page="currentPage"
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc"
             >
               <!-- A virtual composite column -->
               <template #cell(actions)="data">
                 <div class="d-flex">
                   <b-button
+                    size="sm"
                     @click="
                       $bvModal.show('bv-modal-request-type-update');
                       fetchRequestTypeById(data.item.requestTypeId);
@@ -45,6 +48,7 @@
                     >Editar</b-button
                   >
                   <b-button
+                    size="sm"
                     @click="deleteRequestTypeById(data.item.requestTypeId)"
                     variant="danger"
                     class="ml-2"
@@ -143,6 +147,8 @@ export default {
     return {
       perPage: 10,
       currentPage: 1,
+      sortBy: "createdAt",
+      sortDesc: true,
       items: [],
       fields: [
         { key: "requestTypeId", label: "Id" },
@@ -160,6 +166,7 @@ export default {
           formatter: (value) => {
             return this.formatToDMY(value);
           },
+          sortable: true,
         },
         { key: "actions", label: "Acciones" },
       ],

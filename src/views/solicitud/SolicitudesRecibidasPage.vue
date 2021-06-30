@@ -24,6 +24,8 @@
               :items="enabledCustomerRequestList"
               :per-page="perPage"
               :current-page="currentPage"
+              :sort-by.sync="sortBy"
+              :sort-desc.sync="sortDesc"
             >
               <!-- A custom formatted column -->
               <template #cell(customerDto)="data">
@@ -82,6 +84,8 @@ export default {
     return {
       perPage: 10,
       currentPage: 1,
+      sortBy: "createdAt",
+      sortDesc: true,
       fields: [
         { key: "id", label: "Id" },
         {
