@@ -63,7 +63,7 @@ export default {
     return {
       perPage: 10,
       currentPage: 1,
-      sortBy: "ticketPriority",
+      sortBy: "createdAt",
       sortDesc: true,
       fields: [
         { key: "id", label: "Id" },
@@ -78,7 +78,6 @@ export default {
         {
           key: "ticketPriority",
           label: "Prioridad",
-          sortable: true,
         },
         {
           key: "estimatedTime",
@@ -86,6 +85,7 @@ export default {
           formatter: (value) => {
             return value == null ? "Sin estimar" : this.formatToDMYHM(value);
           },
+          sortable: true,
         },
         {
           key: "createdAt",
