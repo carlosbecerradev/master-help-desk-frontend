@@ -45,6 +45,13 @@
                 >Valoraciones</router-link
               >
             </b-list-group-item>
+            <b-list-group-item>
+              <router-link
+                to="/reporte/tickets-cerrados"
+                class="lateral-navbar-nav-item-link d-block"
+                >Tickets cerrados</router-link
+              >
+            </b-list-group-item>
           </b-list-group>
         </details>
       </div>
