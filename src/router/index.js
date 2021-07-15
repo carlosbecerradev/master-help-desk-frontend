@@ -19,6 +19,7 @@ import ListarTipoDeSolicitudesPage from '../views/solicitud/ListarTipoDeSolicitu
 import RegistrarValoraciónPage from '../views/valoracion/RegistrarValoraciónPage.vue'
 import AssessmentReportPage from '../views/reporte/AssessmentReportPage.vue'
 import TicketReportPage from '../views/reporte/TicketReportPage.vue'
+import DashboardTecnicoPage from '../views/dashboard/DashboardTecnicoPage.vue'
 
 Vue.use(VueRouter)
 
@@ -129,6 +130,12 @@ const routes = [
     path: '/reporte/tickets-cerrados',
     name: 'TicketReportPage',
     component: TicketReportPage,
+    meta: { protectedRoute: true }
+  },
+  {
+    path: '/tecnico/dashboard',
+    name: 'DashboardTecnicoPage',
+    component: DashboardTecnicoPage,
     meta: { protectedRoute: true }
   },
 ]

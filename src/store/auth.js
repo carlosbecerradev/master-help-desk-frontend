@@ -52,7 +52,7 @@ const actions = {
                 router.push("/analista/solicitudes");
                 break;
             case "TECNICO":
-                router.push("/tecnico/tickets");
+                router.push("/tecnico/dashboard");
                 break;
             default:
                 router.push("/login");

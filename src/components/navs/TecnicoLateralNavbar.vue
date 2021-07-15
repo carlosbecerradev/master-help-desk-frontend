@@ -11,6 +11,14 @@
 
       <div class="lateral-navbar-nav">
         <details>
+          <summary class="lateral-navbar-nav-item">
+            <router-link to="/tecnico/dashboard" class="text-white"
+              >Dashboard</router-link
+            >
+          </summary>
+        </details>
+
+        <details>
           <summary class="lateral-navbar-nav-item">Tickets</summary>
           <b-list-group>
             <b-list-group-item>
