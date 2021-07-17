@@ -62,8 +62,11 @@
             </div>
             <div class="list-body my-4">
               <b-row>
-                <b-col cols="12" md="6">
+                <b-col cols="12" md="12" lg="6">
                   <div class="chart-block">
+                    <p class="text-center mt-3 chart-title">
+                      Gráfica de mi Valoración en Atención de Tickets
+                    </p>
                     <pie-chart
                       :chart-data="datacollection"
                       :options="chartOptions"
@@ -97,14 +100,11 @@ export default {
         allTicketsCerradosCount: 0,
       },
       chartOptions: {
-        title: {
-          display: true,
-          text: "Valoración de Atención de Soporte",
-        },
         legend: {
           position: "bottom",
         },
         responsive: true,
+        maintainAspectRatio: false,
       },
       today: "2021-07-09T00:00:00.00Z",
     };
