@@ -49,7 +49,7 @@ const actions = {
                 router.push("/usuario/listar");
                 break;
             case "ANALISTA":
-                router.push("/analista/solicitudes");
+                router.push("/analista/dashboard");
                 break;
             case "TECNICO":
                 router.push("/tecnico/dashboard");

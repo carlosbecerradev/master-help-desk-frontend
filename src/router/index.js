@@ -20,6 +20,7 @@ import RegistrarValoraciónPage from '../views/valoracion/RegistrarValoraciónPa
 import AssessmentReportPage from '../views/reporte/AssessmentReportPage.vue'
 import TicketReportPage from '../views/reporte/TicketReportPage.vue'
 import DashboardTecnicoPage from '../views/dashboard/DashboardTecnicoPage.vue'
+import DashboardAnalistaPage from '../views/dashboard/DashboardAnalistaPage.vue'
 
 Vue.use(VueRouter)
 
@@ -136,6 +137,12 @@ const routes = [
     path: '/tecnico/dashboard',
     name: 'DashboardTecnicoPage',
     component: DashboardTecnicoPage,
+    meta: { protectedRoute: true }
+  },
+  {
+    path: '/analista/dashboard',
+    name: 'DashboardAnalistaPage',
+    component: DashboardAnalistaPage,
     meta: { protectedRoute: true }
   },
 ]
