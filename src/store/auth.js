@@ -46,7 +46,7 @@ const actions = {
                 router.push("/solicitud");
                 break;
             case "ADMINISTRADOR":
-                router.push("/usuario/listar");
+                router.push("/admin/dashboard");
                 break;
             case "ANALISTA":
                 router.push("/analista/dashboard");

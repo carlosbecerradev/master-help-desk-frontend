@@ -21,6 +21,7 @@ import AssessmentReportPage from '../views/reporte/AssessmentReportPage.vue'
 import TicketReportPage from '../views/reporte/TicketReportPage.vue'
 import DashboardTecnicoPage from '../views/dashboard/DashboardTecnicoPage.vue'
 import DashboardAnalistaPage from '../views/dashboard/DashboardAnalistaPage.vue'
+import DashboardAdminPage from '../views/dashboard/DashboardAdminPage.vue'
 
 Vue.use(VueRouter)
 
@@ -144,6 +145,12 @@ const routes = [
     name: 'DashboardAnalistaPage',
     component: DashboardAnalistaPage,
     meta: { protectedRoute: true }
+  },
+  {
+    path: '/admin/dashboard',
+    name: 'DashboardAdminPage',
+    component: DashboardAdminPage,
+    meta: { protectedRoute: false }
   },
 ]
 
