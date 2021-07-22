@@ -150,7 +150,7 @@ const routes = [
     path: '/admin/dashboard',
     name: 'DashboardAdminPage',
     component: DashboardAdminPage,
-    meta: { protectedRoute: false }
+    meta: { protectedRoute: true }
   },
 ]
 
